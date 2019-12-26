@@ -1,0 +1,49 @@
+﻿@using DataGridFileUploader.Models
+
+<script type="text/javascript">
+    //<![CDATA[
+    function onEditorPreparing(e) {
+        if (e.parentType == "dataRow" && e.dataField == "Picture") {
+            e.editorName = "dxFileUploader";
+            e.editorOptions.value = [];
+            e.editorOptions.accept = "image/*";
+            e.editorOptions.elementAttr = { "data-id": (e.row.isNewRow ? -1 : e.row.key) };
+            e.editorOptions.onValueChanged = function (args) {
+                var key = args.element.attr("data-id");
+                args.component.option("uploadUrl", "/api/Employees/Upload?key=" + key);
+                e.setValue(args.value[0].name);
+            }
+        }
+    }
+    //]]>
+</script>
+
+@(Html.DevExtreme().DataGrid<Employee>()
+    .ShowBorders(true)
+    .DataSource(d => d.WebApi()
+        .Key("ID")
+        .Controller("Employees")
+        .LoadAction("Get")
+        .InsertAction("Post")
+        .UpdateAction("Put")
+        .DeleteAction("Delete")
+    )
+    .Columns(columns => {
+        columns.AddFor(m => m.FirstName);
+        columns.AddFor(m => m.LastName);
+        columns.AddFor(m => m.Picture)
+            .Width(100)
+            .CellTemplate(@<text>
+                <% if (value) { %>
+                    <img src="<%- '/Content/Pictures/' + value %>" />
+                <% } %>
+            </text>);
+    })
+    .Editing(editing => {
+        editing.Mode(GridEditMode.Form);
+        editing.AllowAdding(true);
+        editing.AllowUpdating(true);
+        editing.AllowDeleting(true);
+    })
+    .OnEditorPreparing("onEditorPreparing")
+)
