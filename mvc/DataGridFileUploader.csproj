@@ -260,12 +260,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExtreme.AspNet.Data">
+    <PackageReference Include="DevExtreme.AspNet.Data">
       <Version>2.5.1</Version>
-    </Reference>
-    <Reference Include="DevExtreme.AspNet.Mvc">
+    </PackageReference>
+    <PackageReference Include="DevExtreme.AspNet.Mvc">
       <Version>19.2.*</Version>
-    </Reference>
+    </PackageReference>
     <PackageReference Include="Antlr">
       <Version>3.5.0.2</Version>
     </PackageReference>
