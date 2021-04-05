@@ -1,4 +1,4 @@
-# DataGrid - How to use FileUploader as a cell editor
+# Obsolete - DataGrid - How to use FileUploader as a cell editor
 
 This example is obsolete.
 
